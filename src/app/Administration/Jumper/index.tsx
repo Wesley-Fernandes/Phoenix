@@ -1,6 +1,6 @@
 import React, { FormEvent, useRef } from 'react'
 import style from './component.module.css'
-import { supabase } from '@styles/supabase/supabase'
+import { supabase } from '../../../supabase/supabase'
 export default function Jumper() {
   const formRef = useRef<HTMLFormElement>(null)
   async function create_jumper(e:FormEvent) {

@@ -1,94 +1,64 @@
+"use client"
+
 import Image from 'next/image'
 import styles from './page.module.css'
 
+import { supabase } from '../supabase/supabase'
+import { useEffect, useState } from 'react'
+import { IMenuItem } from '@styles/types/Menu'
+import { useRouter } from 'next/navigation'
+
+
 export default function Home() {
+  const [links, setLinks] = useState<IMenuItem[]|any>([]);
+  const {push} = useRouter();
+
+
+  async function get_links(value:string){
+    console.log(value)
+    let { data, error } = await supabase.from("links").select("*").filter("tag", "eq", value);
+
+      if(error){
+        throw new Error(`Somethin wrong has happend: ${error}`);
+      }
+
+      if(data == null){
+        throw new Error(`Somethin wrong has happend: ${error}`);
+      }
+
+      setLinks(data)
+      return
+
+  }
+
+
+  useEffect(()=>{
+    get_links("plataforms");
+  }, [])
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+      <header className={styles.header}>
+        <h1 className={styles.header_title}>PHOENIX</h1>
+        <select name="content" className={styles.header_select} onChange={(e)=>{get_links(e.target.value)}}>
+          <option value="novice">Para novos usuarios</option>
+          <option value="tutorial">Pergaminhos de conhecimento</option>
+          <option value="system">Sistemas da comunidade</option>
+          <option value="plataforms">Plataformas da comunidade</option>
+        </select>
+        <small className={styles.header_text}>Esse é o manual da comunidade, clique em selecionar modulo abaixo e encontre conteudos relacionado com o que procuras.</small>
+      </header>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <div className={styles.content}>
+        {links?.map(({link, title, id}:IMenuItem)=>{
+          return(
+          <button
+            onClick={()=>{push(link)}}
+            className={styles.linker}
+            key={id}>
+              {title}
+            </button>)
+        })}
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
     </main>
   )

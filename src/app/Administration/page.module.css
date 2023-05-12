@@ -1,0 +1,30 @@
+.main{
+    padding: 15px;
+    height: 100vh;
+    width: 100vw;
+    background: #012E57;
+    display: flex;
+    flex-direction: column;
+
+    .header{
+        border: 8px solid black;
+        border-radius: 10px;
+        background-color: black;
+
+        .selector{
+            height: 40px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+        }
+    }
+    
+    .component{
+        min-height: fit-content;
+        max-height: calc(100% - 15px);
+        margin-top: 15px;
+        border-radius: 10px;
+    }
+
+
+}

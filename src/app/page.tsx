@@ -11,35 +11,65 @@ import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [links, setLinks] = useState<IMenuItem[]|any>([]);
+  const [tag, setTag] = useState<string>('novice');
   const {push} = useRouter();
 
 
-  async function get_links(value:string){
-    console.log(value)
-    let { data, error } = await supabase.from("links").select("*").filter("tag", "eq", value);
+  async function get_all_links(){
+    let { data:links_recovers, error } = await supabase.from("links").select("*");
 
-      if(error){
-        throw new Error(`Somethin wrong has happend: ${error}`);
+    if(error){
+      throw new Error(`Somethin wrong has happend: ${error}`);
+    }
+
+    if(links_recovers == null){
+      throw new Error(`Somethin wrong has happend: ${error}`);
+    }
+
+    const novice = links_recovers.filter((item)=>{
+      if(item.tag==="novice"){
+        return item;
       }
+    })
 
-      if(data == null){
-        throw new Error(`Somethin wrong has happend: ${error}`);
+    const tutorial = links_recovers.filter((item)=>{
+      if(item.tag==="tutorial"){
+        return item;
       }
+    })
 
-      setLinks(data)
-      return
+
+    const system = links_recovers.filter((item)=>{
+      if(item.tag==="system"){
+        return item;
+      }
+    })
+
+    const plataforms = links_recovers.filter((item)=>{
+      if(item.tag==="plataforms"){
+        return item;
+      }
+    });
+
+
+    const all_links = {novice, plataforms, system, tutorial};
+    setLinks(all_links);
+
+    console.log(links);
 
   }
 
 
+
+
   useEffect(()=>{
-    get_links("plataforms");
+    get_all_links()
   }, [])
   return (
     <main className={styles.main}>
       <header className={styles.header}>
         <h1 className={styles.header_title}>PHOENIX</h1>
-        <select name="content" className={styles.header_select} onChange={(e)=>{get_links(e.target.value)}}>
+        <select name="content" className={styles.header_select} onChange={(e)=>{setTag(e.target.value)}}>
           <option value="novice">Para novos usuarios</option>
           <option value="tutorial">Pergaminhos de conhecimento</option>
           <option value="system">Sistemas da comunidade</option>
@@ -49,15 +79,43 @@ export default function Home() {
       </header>
 
       <div className={styles.content}>
-        {links?.map(({link, title, id}:IMenuItem)=>{
-          return(
-          <button
-            onClick={()=>{push(link)}}
-            className={styles.linker}
-            key={id}>
+
+
+        {tag === "tutorial" &&(
+          links?.tutorial?.map(({link, title, id}:IMenuItem)=>{
+            return (
+            <button onClick={()=>{push(link)}} key={id} className={styles.linker}>
               {title}
             </button>)
-        })}
+          })
+        )}
+
+        {tag === "novice" &&(
+          links?.novice?.map(({link, title, id}:IMenuItem)=>{
+            return (
+            <button onClick={()=>{push(link)}} key={id} className={styles.linker}>
+              {title}
+            </button>)
+          })
+        )}
+
+        {tag === "system" &&(
+          links?.system?.map(({link, title, id}:IMenuItem)=>{
+            return (
+            <button onClick={()=>{push(link)}} key={id} className={styles.linker}>
+              {title}
+            </button>)
+          })
+        )}
+
+        {tag === "plataforms" &&(
+          links?.plataforms?.map(({link, title, id}:IMenuItem)=>{
+            return (
+            <button onClick={()=>{push(link)}} key={id} className={styles.linker}>
+              {title}
+            </button>)
+          })
+        )}
 
       </div>
     </main>

@@ -3,4 +3,5 @@ export interface IMenuItem{
     link: string;
     id?: number;
     created_at?: any;
+    tag: string;
 }

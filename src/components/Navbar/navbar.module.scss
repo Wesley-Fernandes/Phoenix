@@ -1,0 +1,60 @@
+.navbar{
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 50px;
+
+    padding: 5px;
+    border-bottom: 1px solid #ffffff8c;
+    
+    h1{
+        color: #fff;
+    }
+
+    .menu__button{
+        height: 40px;
+        width: 40px;
+
+        background-color: black;
+
+        border: 1px solid #ffffff8c;
+        border-radius: 5px;
+
+        svg{
+            font-size: 1.5rem;
+            color: #ffffff8c;
+        }
+    }
+
+}
+
+.menu__pages{
+    background-color: black;
+
+    position: absolute;
+    top: 49px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    z-index: 20;
+    padding: 5px;
+    
+    li{
+        color: #fff;
+        padding: 5px;
+        width: 100%;
+    }
+
+    hr{
+        border: none;
+        background-color: #ffffff8c;
+        width: 50%;
+        height: 1px;
+        margin: 10px 0;
+    }
+}

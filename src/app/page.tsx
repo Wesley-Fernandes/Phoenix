@@ -5,7 +5,7 @@ import styles from './page.module.css'
 
 import { supabase } from '../supabase/supabase'
 import { useEffect, useState } from 'react'
-import { IMenuItem } from '@styles/types/Menu'
+import { IMenuItem } from '@module/types/Menu'
 import { useRouter } from 'next/navigation'
 
 

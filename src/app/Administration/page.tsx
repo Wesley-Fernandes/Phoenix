@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import style from './page.module.css'
 import Jumper from './Jumper'
 export default function Administration() {
-    const [selector, setSelector] = useState<string>("")
+    const [selector, setSelector] = useState<string>('')
   return (
     <main className={style.main}>
         <div className={style.header}>

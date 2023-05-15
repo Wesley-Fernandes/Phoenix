@@ -33,7 +33,7 @@ export default function CreatePost() {
   return (
     <main className={style.main}>
         <form className={style.form} onSubmit={sender}>
-            <h2 className={style.form__action}>Criando postagem</h2>
+            <h2 className={style.form__action}>Criar postagem</h2>
             <div className={style.form__box}>
                 <input
                     name='title'

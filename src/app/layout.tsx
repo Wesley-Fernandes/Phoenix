@@ -1,6 +1,6 @@
 
 import Navbar from '@module/components/Navbar'
-import './globals.scss'
+import './globals.css'
 import { Inter } from 'next/font/google'
 import { usePathname } from 'next/navigation'
 

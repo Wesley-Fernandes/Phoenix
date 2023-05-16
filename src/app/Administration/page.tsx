@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import style from './page.module.css'
-import Jumper from './Jumper'
+import Jumper from './Jumper/page'
 export default function Administration() {
     const [selector, setSelector] = useState<string>('')
   return (

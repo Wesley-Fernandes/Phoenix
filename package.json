@@ -23,6 +23,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/react-modal-image": "^2.6.0"
+    "@types/react-modal-image": "^2.6.0",
+    "encoding": "^0.1.13"
   }
 }

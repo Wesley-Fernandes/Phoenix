@@ -1,4 +1,3 @@
-"use client"
 
 import Navbar from '@module/components/Navbar'
 import './globals.scss'

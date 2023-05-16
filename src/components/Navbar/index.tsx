@@ -5,6 +5,7 @@ import {RxHamburgerMenu} from 'react-icons/rx'
 import {TfiClose} from 'react-icons/tfi'
 import { useRouter } from 'next/navigation'
 
+
 export default function Navbar() {
     const [toogle, setToogle] = useState<boolean>(false);
     const {push} = useRouter();
@@ -40,7 +41,7 @@ export default function Navbar() {
                 <li onClick={()=>{push('/Chats')}}>Chats</li>
                 <hr />
                 <li onClick={()=>{push('/Private_chats')}}>Chats privados</li>
-                <li onClick={()=>{push('/Profile')}}>Meu perfil</li>
+                <li onClick={()=>{push('/Portfolio')}}>Meu perfil</li>
                 <li onClick={()=>{push('/Configurations')}}>Configurações</li>
             </ul>
         )}

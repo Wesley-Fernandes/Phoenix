@@ -1,7 +1,34 @@
-import React from 'react'
+'use client'
+
+import React, {useState, useEffect} from 'react'
 import style from './page.module.css';
+import { supabase } from '@module/supabase/supabase';
+import ModalImage from 'react-modal-image'
+import { IPost } from '@module/types/Post';
+
+import {AiOutlineHeart,AiFillHeart} from 'react-icons/ai'
 
 function Portfolio() {
+    const [posts, setPosts] = useState<any[]>([])
+    async function getUserPosts(user_id:string){
+        let {data, error } = await supabase
+          .from('posts')
+          .select("*")
+            .eq('user_id', user_id);
+            
+        if(error || !data){
+            throw new Error(`One error has ocorred: ${error}`);
+        }
+        
+        
+        setPosts(data);
+    
+    
+    }
+
+    useEffect(()=>{
+        getUserPosts('wesley_identification')
+    }, [])
   return (
     <div className={style.page}>
 
@@ -18,7 +45,7 @@ function Portfolio() {
 
             <div className={style.footer}>
                 <div className={style.header_information}>
-                    <h3 className={style.header_information_number}>220</h3>
+                    <h3 className={style.header_information_number}>{posts.length}</h3>
                     <span className={style.header_information_title}>
                         IMAGENS
                     </span>
@@ -42,43 +69,22 @@ function Portfolio() {
 
         <main className={style.main}>
 
-            <div className={style.post}>
-                    <div className={style.post_title_box}>
-                        <span className={style.post_title}>
-                            Depois que adquiri o modo sábio...
-                        </span>
-                    </div>
-                <img
-                    className={style.post_image}
-                    src="https://sm.ign.com/ign_br/screenshot/default/naruto-shippuden_zy11.jpg"
-                    alt="imagem da postagem" />
-            </div>
+            {
+                posts.map((post:IPost)=>{
+                    return (
+                        <div className={style.post}>
+                            <ModalImage
+                                small={post.thumbnail}
+                                large={post.image}
+                                alt="imagem da postagem" />
+                            <footer className={style.post__footer}>
+                             <AiFillHeart/> 0
+                            </footer>
+                        </div>
+                    )
+                })
+            }
 
-
-            <div className={style.post}>
-                    <div className={style.post_title_box}>
-                        <span className={style.post_title}>
-                            Depois que adquiri o modo sábio...
-                        </span>
-                    </div>
-                <img
-                    className={style.post_image}
-                    src="https://sm.ign.com/ign_br/screenshot/default/naruto-shippuden_zy11.jpg"
-                    alt="imagem da postagem" />
-            </div>
-
-
-            <div className={style.post}>
-                    <div className={style.post_title_box}>
-                        <span className={style.post_title}>
-                            Depois que adquiri o modo sábio...
-                        </span>
-                    </div>
-                <img
-                    className={style.post_image}
-                    src="https://sm.ign.com/ign_br/screenshot/default/naruto-shippuden_zy11.jpg"
-                    alt="imagem da postagem" />
-            </div>
             
         </main>
     </div>

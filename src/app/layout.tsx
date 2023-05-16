@@ -1,6 +1,10 @@
+"use client"
+
 import Navbar from '@module/components/Navbar'
 import './globals.scss'
 import { Inter } from 'next/font/google'
+import { usePathname } from 'next/navigation'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,15 +13,13 @@ export const metadata = {
   description: 'COMUNIDADE DE ROLEPLAY',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({children,}:{children: React.ReactNode}){
+  const pathname = usePathname();
+  console.log(pathname)
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <Navbar/>
+        {pathname != "/" &&(<Navbar/>)}
         {children}
       </body>
     </html>

@@ -5,30 +5,55 @@ import React, { FormEvent, useRef } from 'react'
 import style from './page.module.css'
 import {RiSendPlaneFill} from 'react-icons/ri'
 import {MdOutlineAttachFile} from 'react-icons/md'
+import { supabase } from '@module/supabase/supabase';
+import { IPost } from '@module/types/Post';
+
+interface IResult{
+    thumb: string;
+    image_fullsize: string;
+}
+
 
 export default function CreatePost() {
+    const fileRef = useRef<HTMLInputElement>(null);
     const inputRef = useRef<HTMLInputElement>(null)
 
     function sender(e:FormEvent){
         e.preventDefault();
 
 
-        if(!inputRef.current){
+        const title = inputRef.current?.value;
+
+        if(!title){
+            console.log("Escolha um titulo");
+            return
+        }
+        
+        if(!fileRef.current){
             console.log("Selecione uma imagem!");
             return
-        }else if(inputRef.current.files===null){
+        }else if(fileRef.current.files===null){
             console.log("Selecione uma imagem!");
             return
         }
 
 
-        const file = inputRef.current.files[0];
+        const file = fileRef.current.files[0];
         const form_data = new FormData();
         form_data.append('image', file);
         form_data.append('name', 'Teste image');
 
-       imgbb(form_data); //call api of imgbb with headers
-    }
+
+
+       imgbb({
+            new_image: form_data,
+            title,
+            user_name:'Darkside'}
+        );
+       
+
+        
+       }
 
   return (
     <main className={style.main}>
@@ -38,6 +63,7 @@ export default function CreatePost() {
                 <input
                     name='title'
                     type="text"
+                    ref={inputRef}
                     placeholder='Titulo da imagem'
                     className={style.form__title}/>
 
@@ -51,7 +77,7 @@ export default function CreatePost() {
                         name='file'
                         id='file'
                         type="file"
-                        ref={inputRef}
+                        ref={fileRef}
                         className={style.form__fileInput}/>
             </div>
 

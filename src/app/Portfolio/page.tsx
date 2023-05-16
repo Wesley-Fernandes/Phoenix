@@ -5,6 +5,7 @@ import style from './page.module.css';
 import { supabase } from '@module/supabase/supabase';
 import ModalImage from 'react-modal-image'
 import { IPost } from '@module/types/Post';
+import { usePathname } from 'next/navigation';
 
 import {AiOutlineHeart,AiFillHeart} from 'react-icons/ai'
 

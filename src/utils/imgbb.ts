@@ -1,3 +1,5 @@
+"use client"
+
 import { IImgbb } from "@module/types/Imgbb";
 import { supabase } from "@module/supabase/supabase";
 import axios from "axios";

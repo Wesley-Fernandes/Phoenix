@@ -8,7 +8,7 @@ import { IPost } from '@module/types/Post';
 
 import {AiOutlineHeart,AiFillHeart} from 'react-icons/ai'
 
-function Portfolio() {
+export default function Portfolio() {
     const [posts, setPosts] = useState<any[]>([])
     async function getUserPosts(user_id:string){
         let {data, error } = await supabase
@@ -90,5 +90,3 @@ function Portfolio() {
     </div>
   )
 }
-
-export default Portfolio;

@@ -7,7 +7,7 @@ import { signInWithEmail } from "@module/utils/Auth"
 import { useRouter } from "next/navigation"
 
 export default function Login(){
-    const router = useRouter();
+    const {push} = useRouter();
 
     async function MakeLogin(event: React.FormEvent){
         event.preventDefault();
@@ -34,8 +34,7 @@ export default function Login(){
         console.log("Usuario logado com sucesso!");
         localStorage.setItem('user_logged_phoenix', JSON.stringify(data.user));
 
-        router.push('/Admin_Dashboard');
-        return
+        push('/Admin_Dashboard');
           
         
 

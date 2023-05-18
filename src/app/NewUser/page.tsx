@@ -2,12 +2,11 @@
 
 import styles from "./page.module.css"
 import {FcGoogle} from 'react-icons/fc'
+import {BsPlusCircleFill} from 'react-icons/bs'
 import { supabase } from "@module/supabase/supabase"
 import { signInWithEmail } from "@module/utils/Auth"
-import { useRouter } from "next/navigation"
 
-export default function Login(){
-    const router = useRouter();
+export default function NewUser(){
 
     async function MakeLogin(event: React.FormEvent){
         event.preventDefault();
@@ -24,22 +23,7 @@ export default function Login(){
             throw new Error("Insira o e-mail e senha para continuar.");
         }
 
-       
-        const { data, error } = await supabase.auth.signInWithPassword({email,password})
-          
-        if(error){
-              throw new Error(`Houve um erro: ${error}`);
-        }
-          
-        console.log("Usuario logado com sucesso!");
-        localStorage.setItem('user_logged_phoenix', JSON.stringify(data.user));
-
-        router.push('/Admin_Dashboard');
-        return
-          
-        
-
-       
+        signInWithEmail({email, password});
     }
 
     return(
@@ -49,6 +33,15 @@ export default function Login(){
                 <small className={styles.BoxAbout}>
                     Faça login para acessar a aplicação
                 </small>
+
+                <input type="file" id="image" />
+
+                <input
+                    name="username"
+                    type="text"
+                    required
+                    placeholder="Apelido"
+                    className={styles.BoxInput}/>
 
                 <input
                     name="email"
@@ -67,6 +60,16 @@ export default function Login(){
 
                 <button type="submit" className={styles.BoxButton}>
                     Fazer login
+                </button>
+
+                <div  className={styles.BoxDivider}>
+                    <hr  className={styles.BoxHr}/>
+                    <span  className={styles.BoxSpan}>OU</span>
+                    <hr  className={styles.BoxHr}/>
+                </div>
+
+                <button className={styles.BoxButton}>
+                    Criar conta
                 </button>
             </form>
         </main>

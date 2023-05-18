@@ -11,8 +11,7 @@ interface IimgbbNeed{
     user_name: 'Darkside'
 }
 
-async function imgbb({new_image, title, user_name}:IimgbbNeed){
-
+async function imgbbPost({new_image, title, user_name}:IimgbbNeed){
     axios.post(encodeURI(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API}`), new_image).then(async(result)=>{
         const data:IImgbb = result.data;
         const { data:postage, error } = await supabase
@@ -31,7 +30,6 @@ async function imgbb({new_image, title, user_name}:IimgbbNeed){
         ]);
 
 
-
         if(error){
             throw new Error(`Houve um erro ao criar postagem: ${error.message}`)
         }
@@ -44,8 +42,20 @@ async function imgbb({new_image, title, user_name}:IimgbbNeed){
 
     }).catch((err)=>{
         console.log(`FAIL: ${err}`);
+    });
+}
+
+async function imgbbUser({new_image}:IimgbbNeed){
+
+    axios.post(encodeURI(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API}`), new_image).then(async(result)=>{
+        console.log("User creation sucess!");
+        return result.data.thumbnail;
+
+
+
+    }).catch((err)=>{
+        console.log(`FAIL: ${err}`);
     })
 }
 
-
-export {imgbb}
+export {imgbbPost , imgbbUser}

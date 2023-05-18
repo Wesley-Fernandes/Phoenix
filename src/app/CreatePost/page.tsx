@@ -1,6 +1,6 @@
 "use client"
 
-import { imgbb } from '@module/utils/imgbb';
+import { imgbbPost } from '@module/utils/imgbb';
 import React, { FormEvent, useRef } from 'react'
 import style from './page.module.css'
 
@@ -46,7 +46,7 @@ export default function CreatePost() {
 
 
 
-       imgbb({
+        imgbbPost({
             new_image: form_data,
             title,
             user_name:'Darkside'}

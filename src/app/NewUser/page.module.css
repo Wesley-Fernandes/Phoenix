@@ -1,6 +1,6 @@
 .main{
     padding: 15px;
-    height: 100vh;
+    height: calc(100vh - 50px);
     width: 100vw;
     background: #012E57;
     display: flex;

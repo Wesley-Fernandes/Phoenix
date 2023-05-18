@@ -1,11 +1,16 @@
 "use client"
 import React, { useState } from 'react'
 import style from './navbar.module.scss'
-import {RxHamburgerMenu} from 'react-icons/rx'
-import {TfiClose} from 'react-icons/tfi'
-import { useRouter } from 'next/navigation'
-import { usePathname } from 'next/navigation';
 import Link from 'next/link'
+
+
+
+
+import { supabase } from '@module/supabase/supabase';
+import {RxHamburgerMenu} from 'react-icons/rx';
+import {TfiClose} from 'react-icons/tfi';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 
 export default function Navbar() {
@@ -24,10 +29,23 @@ export default function Navbar() {
         }
     }
 
-    //{pathname != "/" &&(<Navbar/>)}
+
+    async function signOut() {
+        const { error } = await supabase.auth.signOut();
+      
+        if(error){
+          throw new Error(`Houve um erro: ${error.message}`);
+        }
+        
+        localStorage.removeItem('user_logged_phoenix');
+        push('/');
+      }
+
+
+
   return (
     <>
-    {path==="/" ?(<></>):(
+    {path==="/" || path==="/DarkList" ?(<></>):(
         <>
         <nav className={style.navbar} onMouseOut={()=>setToogle(false)}>
                 
@@ -41,20 +59,17 @@ export default function Navbar() {
             {toogle ===true &&(
                 <ul className={style.menu__pages} onMouseOut={()=>setToogle(false)}>
                     <li onClick={()=>{push('/Dashboard')}}>
-                        <Link href={'/Dashboard'}>
-                            Dashboard
-                        </Link>
+                        Dashboard
                     </li>
-                    <li onClick={()=>{push('/CreatePost')}}>
-                        <Link href={'/Criar postagem'}>
-                            Dashboard
-                        </Link>
+                    <li onClick={()=>{push('/Admin_Darklist')}}>
+                        Darklist
                     </li>
                     <hr />
                     <li onClick={()=>{push('/Portfolio')}}>
-                        <Link href={'/Portfolio'}>
-                            Portfolio
-                        </Link>
+                        Meu perfil
+                    </li>
+                    <li onClick={()=>{signOut()}}>
+                        Deslogar
                     </li>
                 </ul>
             )}

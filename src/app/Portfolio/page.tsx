@@ -73,11 +73,11 @@ export default function Portfolio() {
             {
                 posts.map((post:IPost)=>{
                     return (
-                        <div className={style.post}>
+                        <div className={style.post} key={post.id}>
                             <ModalImage
                                 small={post.thumbnail}
                                 large={post.image}
-                                alt="imagem da postagem" />
+                                alt={post.title} />
                             <footer className={style.post__footer}>
                              <AiFillHeart/> 0
                             </footer>

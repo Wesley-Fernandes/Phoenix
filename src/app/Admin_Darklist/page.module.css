@@ -1,0 +1,53 @@
+.Page{
+    height: calc(100vh - 50px);
+    background-color: #282828;
+    
+
+    .Form{
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+
+
+        .Title{
+            color: #fff;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+
+        .inputText{
+            height: 35px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        .inputSelect{
+            height: 35px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        .inputArea{
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        .submitButton{
+            width: 100%;
+            padding: 10px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #0355a1;
+            border: none;
+            border-bottom: 5px solid #012E57;
+            box-shadow: 0 5px 5px 1px rgba(0, 0, 0, 0.295);
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+    }
+}

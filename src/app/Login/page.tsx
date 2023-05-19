@@ -5,6 +5,7 @@ import {FcGoogle} from 'react-icons/fc'
 import { supabase } from "@module/supabase/supabase"
 import { signInWithEmail } from "@module/utils/Auth"
 import { useRouter } from "next/navigation"
+import {FaAngleLeft} from 'react-icons/fa'
 
 export default function Login(){
     const {push} = useRouter();
@@ -43,6 +44,14 @@ export default function Login(){
 
     return(
         <main className={styles.main}>
+            <div className={styles.header}>
+                <button
+                    onClick={()=>{push('/')}}
+                    className={styles.header__buttonBack}>
+                    <FaAngleLeft/>
+                </button>
+                <h3 className={styles.header__title}>Voltar</h3>
+            </div>
             <form className={styles.BoxLogin} onSubmit={(e)=>{MakeLogin(e)}}>
                 <h1 className={styles.BoxTitle}>PHOENIX</h1>
                 <small className={styles.BoxAbout}>

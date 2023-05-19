@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from 'react'
 import style from './page.module.css'
-import {HiUser, HiBan} from 'react-icons/hi'
-import {GiShieldDisabled} from 'react-icons/gi'
-import {MdOutlineHourglassBottom, MdAdminPanelSettings} from 'react-icons/md'
+import { HiUser, HiBan } from 'react-icons/hi'
+import { GiShieldDisabled} from 'react-icons/gi'
+import { MdOutlineHourglassBottom, MdAdminPanelSettings } from 'react-icons/md'
 import { supabase } from '@module/supabase/supabase'
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
+import {FaAngleLeft} from 'react-icons/fa'
 
-export default function DarkList() {
+export default function Darklist() {
     const [datas, setDatas] = useState<any[]|[]>([]);
 
     const {push} = useRouter();
@@ -32,26 +33,19 @@ export default function DarkList() {
         return
     }
     
-
-
-
     useEffect(()=>{
         get_lasts();
-    }, [])
+    }, []);
+
   return (
     <div className={style.page}>
         <header className={style.header}>
-            <h2 className={style.header__pageTitle}>Punições</h2>
-            <div className={style.search__Box}>
-                <input
-                    type="text"
-                    placeholder='Digite o nome para procurar...'
-                    className={style.search__input}/>
-                <button
-                    className={style.search__button}>
-                        search
+            <button
+                className={style.header__backbutton}
+                onClick={()=>{push('/')}}>
+                    <FaAngleLeft/>
                 </button>
-            </div>
+            <h2 className={style.header__pageTitle}>Lista de punições</h2>
         </header>
         <main className={style.main}>
 

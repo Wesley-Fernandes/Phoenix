@@ -10,7 +10,7 @@ import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import {FaAngleLeft} from 'react-icons/fa'
 
-export default function Darklist() {
+export default function User_Darklist() {
     const [datas, setDatas] = useState<any[]|[]>([]);
 
     const {push} = useRouter();
